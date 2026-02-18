@@ -1,32 +1,6 @@
  
  
  
-@import "./global/color";
-@import "./global/button";
-
-
-
-//
-// 
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
-// @import "global/.scss";
+@use "./global/color" as *;
+@use "./global/button" as *;
+@use "./components-style/header" as *;

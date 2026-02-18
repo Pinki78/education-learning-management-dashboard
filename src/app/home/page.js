@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import SideBarNav from "@/components/header/header-compon/side-bar/side-bar-nav";
+import PageTitleArea from "@/components/page-title-area/page-title-area";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -8,7 +9,8 @@ const Homepage = () => {
 
   return (
     <>
-      <section>
+    {/* <PageTitleArea /> */}
+      {/* <section>
         <div className="container w-full mx-auto">
           <div className=" bx-grid-wrapper">
             <div
@@ -36,7 +38,7 @@ const Homepage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

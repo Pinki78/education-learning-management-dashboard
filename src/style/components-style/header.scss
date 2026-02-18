@@ -1,0 +1,34 @@
+@use "../global/color" as *; 
+
+.bx-collapse
+{
+    .bx-collapse-arrow-right{
+        position: absolute;
+            right: 17px;
+    }
+}
+
+.bx-sidebar-group
+{
+    li{
+        .bx-active{
+            background: $color-green-2;
+            svg{
+                color: #fff;
+            }
+        }
+
+        a{
+                border-radius: 0;
+
+
+        }
+    }
+}
+
+.bx-btn-collapse
+{
+    .bx-collapse-arrow-right{
+       display: none;
+    }
+}

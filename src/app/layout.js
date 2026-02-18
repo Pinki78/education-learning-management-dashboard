@@ -5,6 +5,7 @@ import "./style.css";
 import "../style/global.scss";
 import Header from "@/components/header/header";
 import Providers from "./providers";
+import LayoutWrapper from "./layout-wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,8 @@ export const metadata = {
 // import { Provider } from "react-redux";
 // import { store } from "@/assets/redux-store/store";
 
+
+
 export default function RootLayout({ children }) {
   return (
     <>
@@ -35,8 +38,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <Header />
-          <div className="bx-root-app pt-[87px]">{children}</div>
+          <LayoutWrapper>
+              <div className="bx-root-app ">{children}</div>
+          </LayoutWrapper>
         </Providers>
 
          {/* <Header />

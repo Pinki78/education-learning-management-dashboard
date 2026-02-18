@@ -51,12 +51,14 @@ export const createCourseList = (
   subCategory= null,
   badge = null,
   views = null,
-  //   socialiocn = [],
+    socialiocn = null,
   duration = null,
 ) => {
-  const imagePath = `/images/courses/${categories[0]
+ const slugCategory = categoryName
     .toLowerCase()
-    .replace(/\s+/g, "")}/${imageName}`;
+    .replace(/\s+/g, "-");
+
+  const imagePath = `/images/courses/${slugCategory}/${imageName}`;
 
   return {
     id: getIdCourse(title),
