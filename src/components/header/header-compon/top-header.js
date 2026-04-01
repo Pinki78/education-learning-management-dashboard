@@ -8,52 +8,54 @@ import MsgHeader from "./dropdown-msg/msg-header";
 import SideBarButton from "./side-bar/side-bar-button";
 import NotiHeader from "./dropdown-noti/noti-header";
 import ProfileHeader from "./profile-dropdown/profile-header";
-
+import SearchInputForm from "@/components/search/search";
+import { List, ListItem } from "flowbite-react";
 // import logo from "/images/";
-
+import { IoCreateSharp } from "react-icons/io5";
 const TopHeader = (props) => {
   const dispatch = useDispatch();
-  const { loading }= useSelector((state) => state.headerMenuReducer); // assuming your slice has 'open'
-
+  const { loading } = useSelector((state) => state.headerMenuReducer); // assuming your slice has 'open'
 
   return (
     <>
-      <div
-        className="bx-top-header"> 
-        <div className=" grid grid-cols-12  gap-4  ">
-          <div className="col-span-1">
-            <SideBarButton />
-          </div>
-          <div className="col-span-2 py-3">
-            <div className="bx-log">
-              <Link href="/">
-                <img
-                  src="/images/logo.png"
-                  alt="logo"
-                  className={`w-[74%]`}
-                                
-                />
-              </Link>
-            </div>
-          </div>
-          <div className="col-span-4 md:col-span-2 py-3"></div>
-          <div className="col-span-5 md:col-span-7  py-3">
-            <div className="flex jusyfy-end justify-end  content-center">
-             
+      <div className={`bx-top-header flex w-[100%] `}>
+        <div className={`w-[5%] flex-none`}>
+          <SideBarButton />
+        </div>
+
+        <div className="bx-log w-[13%] py-3">
+          <Link href="/">
+            <img src="/images/logo.png" alt="logo" className={`w-[100%]`} />
+          </Link>
+        </div>
+        <div className={`py-3 ml-[15px] w-[26%]`}>
+          <SearchInputForm />
+        </div>
+        <div className=" py-3 float-right w-[56%] grid">
+          <List
+            className={`flex jusyfy-end justify-end unstyled items-center list-none content-center`}
+          >
+            <ListItem className="mb-0">
               <LinkButton
-                 PathUrl="/create-new-course"
+                PathUrl="/create-new-course"
                 BtnName="Create New Course"
                 isProcessing={loading}
+                // IconName="IoCreateSharp"
               />
+            </ListItem>
+            <ListItem className="mb-0">
               <CartHeader />
-
+            </ListItem>
+            <ListItem className="mb-0">
               <MsgHeader />
-
+            </ListItem>
+            <ListItem className="mb-0">
               <NotiHeader />
-
+            </ListItem>
+            <ListItem className="mb-0">
               <ProfileHeader />
-            </div>
-          </div>
+            </ListItem>
+          </List>
         </div>
       </div>
     </>

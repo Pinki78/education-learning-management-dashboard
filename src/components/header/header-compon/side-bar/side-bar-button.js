@@ -17,7 +17,7 @@ const handleClick = () => {
   };
   return (
      <>
-      <Button onClick={handleClick} className={`z-50 h-[100%] p-[12px] w-[85%] bg-[#3b9e62]
+      <Button onClick={handleClick} className={`z-50 h-[100%] p-[8px] w-[85%] bg-[#3b9e62]
       shadow-lg text-[33px] rounded-[0]  hover:bg-[#000]`}>
         {activeItemId ? <HiOutlineBars3BottomLeft /> : <HiOutlineBars3BottomRight />}
       </Button>

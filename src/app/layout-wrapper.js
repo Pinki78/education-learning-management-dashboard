@@ -15,13 +15,13 @@ const LayoutWrapper = ({ children }) => {
     <>
       <Header />
 
-      <section>
+      <section className={`pt-[83px] `}>
         <div className="container w-full mx-auto">
           <div className="bx-grid-wrapper">
             <div
               className={`
                 fixed 
-                top-[83px] bottom-[0] left-[0px]
+                top-[73px] bottom-[0] left-[0px]
                 transition-all duration-300
                 ${activeItemId ? "w-[60px]" : "w-[240px]"}
               `}
@@ -31,14 +31,16 @@ const LayoutWrapper = ({ children }) => {
 
             <div
               className={`
-                pt-[87px]
+                pt-[0px]
                 transition-all duration-300
                 ${activeItemId ? "ml-[76px]" : "ml-[258px]"}
               `}
             >
                {/* Dynamic Page Title */}
-              <PageTitleArea />
-              {children}
+              <div className="container px-5">
+                <PageTitleArea  />
+                {children}
+              </div>
             </div>
           </div>
         </div>

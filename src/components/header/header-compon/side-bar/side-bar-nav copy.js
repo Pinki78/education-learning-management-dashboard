@@ -24,8 +24,6 @@ import * as GiBookCover from "react-icons/gi";
 
 import {
   fetchHeaderMenu,
-  setToggleItem,
-  setToggleDropdown,
   uploadHeaderMenu,
 } from "@/assets/redux-store/store-redux-componets/headerMenuSlice";
 import { useEffect } from "react";
@@ -49,7 +47,7 @@ const SideBarNav = (props) => {
   const pathname = usePathname();
 
   const dispatch = useDispatch();
-  const { activeItemId, menuHeader , activeDropdownId} = useSelector(
+  const { activeItemId, menuHeader } = useSelector(
     (state) => state.headerMenuReducer,
   ); // assuming your slice has 'open'
   // console.log(menuHeader);
@@ -89,7 +87,7 @@ const SideBarNav = (props) => {
       >
         <Sidebar aria-label="Sidebar with multi-level dropdown example" className={`bx-nav-sidebar w-[100%] `}>
           <SidebarItems className={`w-[100%]`}>
-            <SidebarItemGroup className="bx-sidebar-group bx-flowbite-sidebar-item-group">
+            <SidebarItemGroup className="bx-sidebar-group">
               {menuHeader.map((item) => {
                 const hasSubMenu = item.SubMenuDate?.length > 0;
                 const IconComponent = allIcons[item.iconName?.trim()];
@@ -101,8 +99,6 @@ const SideBarNav = (props) => {
                       key={item.id}
                       icon={IconComponent}
                       label={!activeItemId ? item.pathName : ""}
-                      open={activeDropdownId === item.id}
-                      onClick={() => dispatch(setToggleDropdown(item.id))}
                       className={` ${activeItemId ? " flex-col bx-btn-collapse" : "flex-row"}
                        ${ isActive ? "bx-active" : "bx-collapse relative"}
                       `}
@@ -133,8 +129,8 @@ const SideBarNav = (props) => {
                             `}
 
                             theme={{
-                              base: "bx-li-collapse-item", // this goes to <li
-                            }}
+                      base: "bx-li-collapse-item", // this goes to <li
+                    }}
                           >
                             {!activeItemId ? subItem.pathNameSub : ""}
                           </SidebarItem>

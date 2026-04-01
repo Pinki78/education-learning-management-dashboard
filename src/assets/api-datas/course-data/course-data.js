@@ -33,6 +33,7 @@ const getIdSocial = (suffix = "") => {
   return `${idSocial}${suffix}`;
 };
 
+
 const slugify = (text) =>
   text
     .toLowerCase()

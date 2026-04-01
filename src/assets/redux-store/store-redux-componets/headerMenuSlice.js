@@ -40,6 +40,7 @@ const headerMenuSlice = createSlice({
     menuHeader: [],
     loading: false,
     activeItemId: null,
+    activeDropdownId:null
   },
 
   reducers: {
@@ -49,6 +50,14 @@ const headerMenuSlice = createSlice({
           ? null
           : action.payload;
     },
+
+    setToggleDropdown: (state, action) => {
+  state.activeDropdownId =
+    state.activeDropdownId === action.payload
+      ? null
+      : action.payload;
+},
+
 
     
   },
@@ -75,5 +84,5 @@ const headerMenuSlice = createSlice({
   },
 });
 
-export const { setToggleItem } = headerMenuSlice.actions;
+export const { setToggleItem , setToggleDropdown} = headerMenuSlice.actions;
 export default headerMenuSlice.reducer;

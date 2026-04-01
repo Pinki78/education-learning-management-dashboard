@@ -14,19 +14,12 @@ const PageTitleArea = () => {
     (state) => state.headerMenuReducer
   );
 
-  console.log("Component rendered");
-  console.log("pathname:", pathname);
-  console.log("menuHeader:", menuHeader);
-
   useEffect(() => {
     dispatch(fetchHeaderMenu());
   }, [dispatch]);
 
   const normalizePath = (path = "") =>
     path.trim().replace(/\/+$/, "").toLowerCase();
-
-  const getCurrentPageTitle = (menuList = [], pathname) => {
-  const cleanPath = normalizePath(pathname);
 
   const generateTitle = (path = "") => {
     const clean = path.replace(/^\/+/, "");
@@ -40,37 +33,67 @@ const PageTitleArea = () => {
       .join(" ");
   };
 
-  for (const menu of menuList) {
-    const menuPath = normalizePath(menu.pathUrl);
+  const getCurrentPageData = (menuList = [], pathname) => {
+    const cleanPath = normalizePath(pathname);
 
-    if (menuPath === cleanPath) {
-      return menu.pathName?.trim() || generateTitle(menu.pathUrl);
-    }
+    for (const menu of menuList) {
+      if (normalizePath(menu.pathUrl) === cleanPath) {
+        return {
+          title: menu.pathName?.trim() || generateTitle(menu.pathUrl),
+          icon: menu.iconName || null,
+        };
+      }
 
-    if (Array.isArray(menu.SubMenuDate)) {
-      for (const sub of menu.SubMenuDate) {
-        const subPath = normalizePath(sub.pathUrlSub);
-
-        if (subPath === cleanPath) {
-          return (
-            sub.pathNameSub?.trim() ||
-            generateTitle(sub.pathUrlSub)
-          );
+      if (Array.isArray(menu.SubMenuDate)) {
+        for (const sub of menu.SubMenuDate) {
+          if (normalizePath(sub.pathUrlSub) === cleanPath) {
+            return {
+              title:
+                sub.pathNameSub?.trim() ||
+                generateTitle(sub.pathUrlSub),
+              icon: sub.iconNameSub || null,
+            };
+          }
         }
       }
     }
-  }
 
-  // if not found in menu → auto title
-  return generateTitle(pathname);
-};
+    return {
+      title: generateTitle(pathname),
+      icon: null,
+    };
+  };
 
+  const { title: pageTitle, icon: iconName } =
+    getCurrentPageData(menuHeader, pathname);
 
-  const pageTitle = getCurrentPageTitle(menuHeader, pathname);
+  // Update body class
+  useEffect(() => {
+    const bodyClass = `bx-${pageTitle
+      .toLowerCase()
+      .replace(/\s+/g, "-")}-layout-root`;
 
-  console.log("Final page title:", pageTitle);
+    document.body.classList.add(bodyClass);
 
-  return <PageTitleHeading PageName={pageTitle} />;
+    return () => {
+      document.body.classList.remove(bodyClass);
+    };
+  }, [pageTitle]);
+
+  // Update browser title
+  useEffect(() => {
+    document.title = `${pageTitle} | Education Web App`;
+  }, [pageTitle]);
+
+  // console.log(iconName);
+  
+
+  return (
+    <PageTitleHeading
+      PageName={pageTitle}
+      IconName={iconName}
+    />
+  );
 };
 
 export default PageTitleArea;

@@ -9,7 +9,7 @@
 @source "../../.flowbite-react/class-list.json";
 
 :root {
-  --background: #ffffff;
+  --background: #f7f7f7;
   --foreground: #171717;
 }
 
@@ -20,7 +20,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #f7f7f7;
     --foreground: #ededed;
   }
 }
@@ -28,4 +28,30 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 1px;
+	background-color: #000000;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #018d39;
+}
+
+.ql-container.ql-snow {
+  min-height: 50px;
+}
+
+.ql-editor {
+  min-height:150px;
 }

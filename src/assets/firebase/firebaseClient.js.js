@@ -1,7 +1,7 @@
 // Import the functions you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-
+import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAEmzsC3T7Oabe1M62yX9SmjyJ1SQycjRQ",
@@ -18,3 +18,4 @@ const app = initializeApp(firebaseConfig);
 
 // Export Firestore
 export const db = getFirestore(app);
+export const storage = getStorage(app);

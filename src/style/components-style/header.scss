@@ -32,3 +32,37 @@
        display: none;
     }
 }
+
+// .flowbite-sidebar-item-group {
+//   li {
+//     ul {
+//       overflow: hidden;
+//       max-height: 0;
+//       opacity: 0;
+//       transition: max-height 0.35s ease, opacity 0.3s ease;
+//     }
+
+//     button[aria-expanded="true"] + ul {
+//       max-height: 500px;
+//       opacity: 1;
+//     }
+
+//     ul[hidden] {
+//       display: block !important;
+//     }
+//   }
+// }
+
+
+.bx-flowbite-sidebar-item-group li ul[hidden]:where(:not([hidden="until-found"])) {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0.4s ease, opacity 0.3s ease;
+}
+
+/* When open */
+.bx-flowbite-sidebar-item-group li  ul {
+ height: 500px;  /* make larger if needed */
+  opacity: 1;
+}
