@@ -7,7 +7,7 @@ let IdFormSectionsItemsTab = 0;
 let IdItemsTabForm = 0;
 let IdRadioFormTab = 0;
 
-let IdmakeInputTitle= 0;
+let IdmakeInputTitle = 0;
 
 const slugify = (text) =>
   text
@@ -68,6 +68,13 @@ const getIdmakeInputTitle = (makeInputTitle, suffix = "") => {
   IdmakeInputTitle++;
   return `${slug}-${IdmakeInputTitle}${suffix}`;
 };
+let IdtabTextRadio=0;
+const getIdItemsRadioForm = (tabTextRadio, suffix = "") => {
+  const slug = slugify(tabTextRadio);
+  IdtabTextRadio++;
+  return `${slug}-${IdtabTextRadio}${suffix}`;
+};
+
 
 
 
@@ -122,11 +129,11 @@ const makeRadio = (RadiotabLabel, rest) => ({
 
 const makeTabTextRadio = (tabTextRadio, rest) => ({
   tabTextRadio,
-  id: getIdItemsTabForm(tabTextRadio), // ✅
+  id: getIdItemsRadioForm(tabTextRadio), // ✅
   ...rest,
 });
 
-const  makeAssignmentField = (makeInputTitle, rest) => ({
+const makeAssignmentField = (makeInputTitle, rest) => ({
   makeInputTitle,
   id: getIdmakeInputTitle(makeInputTitle), // ✅
   ...rest,
@@ -159,7 +166,8 @@ export const CreateNewCourseFormData = [
       makeField("What will students learn in your course?*", {
         inputName: "learn",
         type: "textarea",
-        subText: "Student will gain skills after completing this course. (One per line).",
+        subText:
+          "Student will gain skills after completing this course. (One per line).",
       }),
       makeField("Requirements*", {
         inputName: "requirements",
@@ -223,263 +231,338 @@ export const CreateNewCourseFormData = [
       }),
     ],
 
-    FormSections: [
-      makeSectionBlock("Introduction", {
-      }),
-    ],
+    FormSections: [makeSectionBlock("Introduction", {})],
 
     FormSectionsItems: [
-          makeSectionItem("Lecture", {
-            Itemstype: "lecture",
-            ItemsIcon: "",
-            addItemHeader: "Add Lecture",
-            FormSectionsItemsTab: [
-              makeTab("Basic", {
-                iconTab: "",
-                ItemsTabForm: [
-                  makeTabForm("Lecture Title", {
-                    tabInputName: "lecturetitle",
-                    tabType: "text",
-                    tabPlaceholder: "",
+      makeSectionItem("Lecture", {
+        // Itemstype: "lecture",
+        // ItemsIcon: "",
+        addItemHeader: "Add Lecture",
+        FormSectionsItemsTab: [
+          makeTab("Basic", {
+            iconTab: "",
+            ItemsTabForm: [
+              makeTabForm("Lecture Title", {
+                tabInputName: "lecturetitle",
+                tabType: "text",
+                tabPlaceholder: "",
+              }),
+              makeTabForm("Description", {
+                tabInputName: "description",
+                tabType: "textarea",
+                tabPlaceholder: "",
+              }),
+              makeTabForm("Free Preview", {
+                tabType: "switch",
+              }),
+            ],
+          }),
+
+          makeTab("Video", {
+            iconTab: "",
+            tabHelpeText: `Select your preferred video type. (.mp4, YouTube, Vimeo etc.)`,
+            ItemsTabForm: [
+              makeTabTextRadio("HTML5(mp4)", {
+                RadioFormTab: [
+                  makeRadio("Upload Video", {
+                    RadiotabType: "file",
+                    Radioaccept: "video/mp4",
+                    RadioaFileid: "Uploaded ID:12",
+                    RadioaHelper: `File Format: .mp4`,
                   }),
-                  makeTabForm("Description", {
-                    tabInputName: "description",
-                    tabType: "textarea",
-                    tabPlaceholder: "",
+                  makeRadio("Video Poster", {
+                    RadiotabType: "file",
+                    Radioaccept: "image/png,image/jpg,image/jpeg",
+                    RadioaFileid: "Uploaded id:preview.jpg",
+                    RadioaHelper: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
                   }),
-                  makeTabForm("Free Preview", {
-                    tabType: "switch",
+                  makeRadio("Video Runtime", {
+                    RadiotabType: "time",
+                    RadiotabLabelSub: "hh:mm:ss",
                   }),
                 ],
               }),
 
-              makeTab("Video", {
-                iconTab: "",
-                tabHelpeText: `Select your preferred video type. (.mp4, YouTube, Vimeo etc.)`,
-                ItemsTabForm: [
-                  makeTabTextRadio("HTML5(mp4)", {
-                    RadioFormTab: [
-                      makeRadio("Upload Video", {
-                        RadiotabType: "file",
-                        Radioaccept: "video/mp4",
-                        RadioaFileid: "Uploaded ID:12",
-                        RadioaHelper: `File Format: .mp4`,
-                      }),
-                      makeRadio("Video Poster", {
-                        RadiotabType: "file",
-                        Radioaccept: "image/png,image/jpg,image/jpeg",
-                        RadioaFileid: "Uploaded id:preview.jpg",
-                        RadioaHelper: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
-                      }),
-                      makeRadio("Video Runtime", {
-                        RadiotabType: "time",
-                        RadiotabLabelSub: "hh:mm:ss",
-                      }),
-                    ],
+              makeTabTextRadio("External URL", {
+                RadioFormTab: [
+                  makeRadio("External Video URL", {
+                    RadiotabType: "text",
+                    RadiotabPlaceholder: "External Video URL",
                   }),
-
-                  makeTabTextRadio("External URL", {
-                    RadioFormTab: [
-                      makeRadio("External Video URL", {
-                        RadiotabType: "text",
-                        RadiotabPlaceholder: "External Video URL",
-                      }),
-                      makeRadio("Video Runtime", {
-                        RadiotabType: "time",
-                        RadiotabLabelSub: "hh:mm:ss",
-                      }),
-                    ],
-                  }),
-
-                  makeTabTextRadio("Youtube URL", {
-                    RadioFormTab: [
-                      makeRadio("Youtube Video URL", {
-                        RadiotabType: "text",
-                        RadiotabPlaceholder: "Youtube Video URL",
-                      }),
-                      makeRadio("Video Runtime", {
-                        RadiotabType: "time",
-                        RadiotabLabelSub: "hh:mm:ss",
-                      }),
-                    ],
-                  }),
-
-                  makeTabTextRadio("Vimeo URL", {
-                    RadioFormTab: [
-                      makeRadio("Vimeo Video URL", {
-                        RadiotabType: "text",
-                        RadiotabPlaceholder: "Vimeo Video URL",
-                      }),
-                      makeRadio("Video Runtime", {
-                        RadiotabType: "time",
-                        RadiotabLabelSub: "hh:mm:ss",
-                      }),
-                    ],
-                  }),
-
-                  makeTabTextRadio("Embedded Code", {
-                    RadioFormTab: [
-                      makeRadio("Place your embedded code here", {
-                        RadiotabType: "textarea",
-                        RadiotabPlaceholder: "Place your embedded code here",
-                      }),
-                      makeRadio("Video Runtime", {
-                        RadiotabType: "time",
-                        RadiotabLabelSub: "hh:mm:ss",
-                      }),
-                    ],
+                  makeRadio("Video Runtime", {
+                    RadiotabType: "time",
+                    RadiotabLabelSub: "hh:mm:ss",
                   }),
                 ],
               }),
 
-              makeTab("Attachments", {
-                iconTab: "",
-                ItemsTabForm: [
-                  makeTabForm("Attachments", {
-                    tabType: "file",
-                    tabHelper: `Supports: jpg, jpeg, png, pdf or .zip`,
-                    tabaccept: "video/mp4",
+              makeTabTextRadio("Youtube URL", {
+                RadioFormTab: [
+                  makeRadio("Youtube Video URL", {
+                    RadiotabType: "text",
+                    RadiotabPlaceholder: "Youtube Video URL",
+                  }),
+                  makeRadio("Video Runtime", {
+                    RadiotabType: "time",
+                    RadiotabLabelSub: "hh:mm:ss",
+                  }),
+                ],
+              }),
+
+              makeTabTextRadio("Vimeo URL", {
+                RadioFormTab: [
+                  makeRadio("Vimeo Video URL", {
+                    RadiotabType: "text",
+                    RadiotabPlaceholder: "Vimeo Video URL",
+                  }),
+                  makeRadio("Video Runtime", {
+                    RadiotabType: "time",
+                    RadiotabLabelSub: "hh:mm:ss",
+                  }),
+                ],
+              }),
+
+              makeTabTextRadio("Embedded Code", {
+                RadioFormTab: [
+                  makeRadio("Place your embedded code here", {
+                    RadiotabType: "textarea",
+                    RadiotabPlaceholder: "Place your embedded code here",
+                  }),
+                  makeRadio("Video Runtime", {
+                    RadiotabType: "time",
+                    RadiotabLabelSub: "hh:mm:ss",
                   }),
                 ],
               }),
             ],
           }),
 
-          makeSectionItem("Quiz", {
-            Itemstype: "quiz",
-            ItemsIcon: "",
-            addItemHeader: "Add Quiz",
-            FormSectionsItemsTab: [
-              makeTab("Basic", {
-                iconTab: "",
-                ItemsTabForm: [
-                  makeTabForm("Quiz Title*", {
-                    tabInputName: "quiztitle",
-                    tabType: "text",
-                    tabPlaceholder: "",
-                  }),
-                  makeTabForm("Description", {
-                    tabInputName: "description",
-                    tabType: "textarea",
-                    tabPlaceholder: "",
-                  }),
-                ],
+          makeTab("Attachments", {
+            iconTab: "",
+            ItemsTabForm: [
+              makeTabForm("Attachments", {
+                tabType: "file",
+                tabHelper: `Supports: jpg, jpeg, png, pdf or .zip`,
+                tabaccept: "video/mp4",
               }),
+            ],
+          }),
+        ],
+      }),
 
-              makeTab("Questions", {
-                iconTab: "",
-                ItemsTabForm: [
-                  makeTabForm("Quiz Title*", {
-                    tabInputName: "quiztitle",
-                    tabType: "text",
-                    tabPlaceholder: "",
-                  }),
-                  makeTabForm("Description", {
-                    tabInputName: "description",
-                    tabType: "textarea",
-                    tabPlaceholder: "",
-                  }),
-                ],
+      makeSectionItem("Quiz", {
+        Itemstype: "quiz",
+        ItemsIcon: "",
+        addItemHeader: "Add Quiz",
+        FormSectionsItemsTab: [
+          makeTab("Basic", {
+            iconTab: "",
+            ItemsTabForm: [
+              makeTabForm("Quiz Title*", {
+                tabInputName: "quiztitle",
+                tabType: "text",
+                tabPlaceholder: "",
+              }),
+              makeTabForm("Description", {
+                tabInputName: "description",
+                tabType: "textarea",
+                tabPlaceholder: "",
               }),
             ],
           }),
 
-           makeSectionItem("Assignment",{
-            Itemstype: "Assignment",
-            ItemsIcon: "",
-            addItemHeader: "Add Assignment",
+          makeTab("Questions", {
+            iconTab: "",
+            ItemsTabForm: [
+              makeTabForm("Quiz Title*", {
+                tabInputName: "quiztitle",
+                tabType: "text",
+                tabPlaceholder: "",
+              }),
+              makeTabForm("Description", {
+                tabInputName: "description",
+                tabType: "textarea",
+                tabPlaceholder: "",
+              }),
+            ],
+          }),
+        ],
+      }),
 
-            assignmentForm:[
-               makeAssignmentField("Assignment Title*", {
-                    inputName: "title",
-                    type: "text",
-                    placeholder: "Assignment title here",
-                    
-                  }),
+      makeSectionItem("Assignment", {
+        Itemstype: "Assignment",
+        ItemsIcon: "",
+        addItemHeader: "Add Assignment",
 
-                  makeAssignmentField("Description*", {
-                    inputName: "description",
-                    type: "textarea",
-                   
-                    
-                  }),
+        assignmentForm: [
+          makeAssignmentField("Assignment Title*", {
+            inputName: "title",
+            type: "text",
+            placeholder: "Assignment title here",
+          }),
 
-                   makeAssignmentField("Time Duration*", {
-                    inputName: "duration",
-                    type: "number",
-                    
-                    subText: `Assignment time duration, set 0 for no limit.`,
-                  }),
+          makeAssignmentField("Description*", {
+            inputName: "description",
+            type: "textarea",
+          }),
 
-                   makeAssignmentField("Select", {
-                    inputName: "select",
-                    type: "select",
-                     options: ["Weeks", "Days", "Hours"],
-                    subText: ``,
-                  }),
+          makeAssignmentField("Time Duration*", {
+            inputName: "duration",
+            type: "number",
 
-                   makeAssignmentField("Total Number*", {
-                    inputName: "number",
-                     type: "number",
-                    
-                    subText: `Maximum points a student can score`,
-                  }),
+            subText: `Assignment time duration, set 0 for no limit.`,
+          }),
 
-                   makeAssignmentField("Minimum Pass Number*", {
-                    inputName: "minimum ",
-                   type: "number",
-                    
-                    subText: `Minimum points required for the student to pass this assignment.`,
-                  }),
+          makeAssignmentField("Select", {
+            inputName: "select",
+            type: "select",
+            options: ["Weeks", "Days", "Hours"],
+            subText: ``,
+          }),
 
-                   makeAssignmentField("Upload attachment limit*", {
-                    inputName: "upload",
-                      type: "number",
-                    subText: `Maximum attachment size limit`,
-                  }),
+          makeAssignmentField("Total Number*", {
+            inputName: "number",
+            type: "number",
 
-                   makeAssignmentField("Maximum attachment size limit", {
-                    inputName: "attachment",
-                      type: "number",
-                    subText: `Define maximum attachment size in MB`,
-                  }),
+            subText: `Maximum points a student can score`,
+          }),
 
-                   makeAssignmentField("Attachment", {
-                    inputName: "attachment",
-                    type: "file",
-                    placeholder: "Supports: jpg, jpeg, png, pdf or .zip",
-                    subText: `Supports: jpg, jpeg, png, pdf or .zip`,
-                  }),
+          makeAssignmentField("Minimum Pass Number*", {
+            inputName: "minimum ",
+            type: "number",
 
-                  
+            subText: `Minimum points required for the student to pass this assignment.`,
+          }),
 
+          makeAssignmentField("Upload attachment limit*", {
+            inputName: "upload",
+            type: "number",
+            subText: `Maximum attachment size limit`,
+          }),
 
+          makeAssignmentField("Maximum attachment size limit", {
+            inputName: "attachment",
+            type: "number",
+            subText: `Define maximum attachment size in MB`,
+          }),
 
-
-
-
-            ]
-            
-
-
-           }),
+          makeAssignmentField("Attachment", {
+            inputName: "attachment",
+            type: "file",
+            placeholder: "Supports: jpg, jpeg, png, pdf or .zip",
+            subText: `Supports: jpg, jpeg, png, pdf or .zip`,
+          }),
+        ],
+      }),
     ],
   }),
 
-  makeSection("Media", { 
+  makeSection("Media", {
+    mediaSubText: `Intro Course overview provider type. (.mp4, YouTube, Vimeo etc.)`,
+    FormData: [
+      makeField(
+        "HTML5(mp4)",
+        {
+          type: "file",
+          label: "Choose Thumbnail",
+          subText: `File Format: .mp4`,
+        },
+        {
+          type: "file",
+          label: "Choose Thumbnail",
+          subText: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
+        },
+      ),
 
+      makeField(
+        "External URL",
+        {
+          type: "text",
+          label: "External URL*",
+          subText: ``,
+        },
+        {
+          type: "file",
+          label: "Course thumbnail*",
+          subText: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
+        },
+      ),
 
+      makeField(
+        "YouTube",
+        {
+          type: "text",
+          label: "YouTube*",
+          subText: ``,
+        },
+        {
+          type: "file",
+          label: "Course thumbnail*",
+          subText: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
+        },
+      ),
+
+      makeField(
+        "Vimeo",
+        {
+          type: "text",
+          label: "Vimeo*",
+          subText: ``,
+        },
+        {
+          type: "file",
+          label: "Course thumbnail*",
+          subText: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
+        },
+      ),
+
+      makeField(
+        "Embedded",
+        {
+          type: "textarea",
+          label: "Embedded*",
+          subText: ``,
+        },
+        {
+          type: "file",
+          label: "Course thumbnail*",
+          subText: `Size: 590x300 pixels. Supports: jpg,jpeg, or png`,
+        },
+      ),
+    ],
   }),
 
-   makeSection("Price", { 
+  makeSection("Price", {
+    subText: `If the course is free, if student require to enroll your course, 
+    if not required enroll, if students required sign in to your website to take this course.`,
+    FormData: [
+      makeField("Free", {
+        iconName: "",
 
+        FormCheck: [
+          {
+            labelName: "Require Log In",
+            type: "checkbox",
+          },
+        ],
+      }),
 
+      makeField("Paid", {
+        iconName: "",
+
+        FormCheck: [
+          {
+            labelName: "Require Enroll",
+            type: "checkbox",
+          },
+        ],
+      }),
+    ],
   }),
 
-  makeSection("Submit", { 
-
-
+  makeSection("Submit", {
+    subText: `Your course is in a draft state. Students cannot view, purchase or enroll in this course. For students that
+     are already enrolled, this course will not appear on their student Dashboard.`,
+    iconName: "",
   }),
-
-
 ];

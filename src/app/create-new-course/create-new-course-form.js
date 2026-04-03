@@ -31,7 +31,9 @@ const CreateNewCourseForm = (props) => {
   const dispatch = useDispatch();
 
 
-
+  const { fieldsFormInput } = useSelector(
+    (state) => state.courseNewFormReducer,
+  );
   const { loading, step } = useSelector((state) => state.courseNewFormReducer);
 
   const [formData, setFormData] = useState({
@@ -65,7 +67,12 @@ useEffect(() => {
   });
 
 }, [dispatch]);
+ const basicSection = fieldsFormInput.find(
+    (item) => item.FormTitle ,
+  );
 
+
+fieldsFormInput
   const renderStep = () => {
     switch (step) {
       case 1:

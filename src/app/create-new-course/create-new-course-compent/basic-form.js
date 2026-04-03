@@ -32,6 +32,7 @@ const BasicForm = () => {
     const text = html?.replace(/<[^>]+>/g, "") || "";
     return text.trim().length;
   };
+
   return (
     <>
       <div className="space-y-4">
@@ -47,7 +48,7 @@ const BasicForm = () => {
                   value={formValues[field.inputName] || ""}
                   placeholder={field.placeholder}
                   maxLength={field.maxLength}
-                  subText
+                  
                   onChange={(e) =>
                     dispatch(
                       updateFormValue({

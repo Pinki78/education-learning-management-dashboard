@@ -16,7 +16,7 @@ const LayoutWrapper = ({ children }) => {
       <Header />
 
       <section className={`pt-[83px] `}>
-        <div className="container w-full mx-auto">
+       
           <div className="bx-grid-wrapper">
             <div
               className={`
@@ -37,13 +37,13 @@ const LayoutWrapper = ({ children }) => {
               `}
             >
                {/* Dynamic Page Title */}
-              <div className="container px-5">
+              <div className="container  xl:max-w-full w-full px-5">
                 <PageTitleArea  />
                 {children}
               </div>
             </div>
           </div>
-        </div>
+        
       </section>
     </>
   );
