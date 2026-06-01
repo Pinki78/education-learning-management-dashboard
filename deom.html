@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 50px auto;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background: #ccc;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  padding: 20px 40px;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item.left {
+  left: 0;
+}
+
+.timeline-item.right {
+  left: 50%;
+}
+
+.timeline-item .content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.timeline-item .content h3 {
+  background: #00a8a8;
+  color: #fff;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.timeline-item.left .content {
+  text-align: right;
+}
+
+.timeline-item.right .content {
+  text-align: left;
+}
+
+/* Circle connector */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #00a8a8;
+  border-radius: 50%;
+  top: 30px;
+  right: -10px;
+  z-index: 1;
+}
+
+.timeline-item.right::before {
+  left: -10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline::after {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 20px;
+  }
+
+  .timeline-item.right {
+    left: 0;
+  }
+
+  .timeline-item::before {
+    left: 10px;
+  }
+}
+
+
+.badge {
+  width: 120px;
+  height: 140px;
+  background: linear-gradient(180deg, #1da1d2, #0a6c8f);
+  color: #fff;
+  font-size: 48px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px 20px 60px 60px;
+  position: relative;
+}
+
+/* folded corner */
+.badge::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  background: #0a6c8f;
+  border-bottom-left-radius: 20px;
+}
+    </style>
+</head>
+<body>
+    <div class="badge">04</div>
+    <div class="timeline">
+  <div class="timeline-item left">
+    <div class="content">
+      <h3>2019</h3>
+      <h4>Web Designing</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item right">
+    <div class="content">
+      <h3>2018</h3>
+      <h4>Web Development</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item left">
+    <div class="content">
+      <h3>2017</h3>
+      <h4>JavaScript</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item right">
+    <div class="content">
+      <h3>2016</h3>
+      <h4>Web Development</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

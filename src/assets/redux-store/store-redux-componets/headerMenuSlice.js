@@ -40,7 +40,9 @@ const headerMenuSlice = createSlice({
     menuHeader: [],
     loading: false,
     activeItemId: null,
-    activeDropdownId:null
+    activeDropdownId:null,
+    mobileOpen: false,
+    showCloseClass: false,
   },
 
   reducers: {
@@ -50,15 +52,24 @@ const headerMenuSlice = createSlice({
           ? null
           : action.payload;
     },
-
+setMobileOpen: (state, action) => {
+      state.mobileOpen = action.payload;  // ✅ add this
+    },
     setToggleDropdown: (state, action) => {
   state.activeDropdownId =
     state.activeDropdownId === action.payload
       ? null
       : action.payload;
+    },
+setToggleDropdownSub: (state, action) => {
+  state.activeDropdownId =
+    state.activeDropdownId === action.payload
+      ? null
+      : action.payload;
+    },
+setShowCloseClass: (state, action) => {
+  state.showCloseClass = action.payload;
 },
-
-
     
   },
 
@@ -84,5 +95,5 @@ const headerMenuSlice = createSlice({
   },
 });
 
-export const { setToggleItem , setToggleDropdown} = headerMenuSlice.actions;
+export const { setToggleItem ,setMobileOpen, setToggleDropdown,setShowCloseClass, setToggleDropdownSub} = headerMenuSlice.actions;
 export default headerMenuSlice.reducer;

@@ -3,4 +3,15 @@
  
 @use "./global/color" as *;
 @use "./global/button" as *;
+@use "./global/fornt.scss" as *;
+
+
 @use "./components-style/header" as *;
+@use "./components-style/courses" as *;
+
+// .swiper,
+// .swiper-wrapper,
+// .swiper-slide {
+//   overflow: visible !important;
+// }
+

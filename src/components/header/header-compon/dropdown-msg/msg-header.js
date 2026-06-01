@@ -5,17 +5,32 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "flowbite-react";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  toggleDrawerMsg,
+  closeDrawerCart,
+  closeDrawerNoti,
+  closeDrawerProfile,
+} from "@/assets/redux-store/store-redux-componets/drawerOpenHideSlice";
+
 import { RiMessage2Fill } from "react-icons/ri";
 const MsgHeader = (props) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { drawerMsgOpen } = useSelector((state) => state.drawerReducer);
 
   const handleMagDrawerOpen = () => {
-    setDrawerOpen((prev) => !prev);
+    dispatch(toggleDrawerMsg());
+    dispatch(closeDrawerCart());
+    dispatch(closeDrawerNoti());
+    dispatch(closeDrawerProfile());
   };
 
-  const handleRemoveItem = (id) => {
-    dispatch(removeFromCart(id));
-  };
+  // const handleRemoveItem = (id) => {
+  //   dispatch(removeFromCart(id));
+  // };
 
   return (
     <>
@@ -37,7 +52,7 @@ const MsgHeader = (props) => {
 
         {/* Animated Dropdown */}
         <AnimatePresence>
-          {drawerOpen && (
+          {drawerMsgOpen && (
             <motion.div
               key="cart-dropdown"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}

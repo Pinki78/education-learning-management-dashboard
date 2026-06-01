@@ -1,37 +1,139 @@
-@use "../global/color" as *; 
+@use "../global/color" as *;
 
-.bx-collapse
-{
-    .bx-collapse-arrow-right{
+@mixin absoluteUl {
+    position: absolute;
+    left: 60px;
+    top: 0;
+    width: 250px;
+    z-index: 999;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+@mixin PositionUnset {
+    position: unset;
+    width: 100%;
+}
+
+@mixin nav-span-opacity-0 {
+    opacity: 0;
+    width: 0%;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0;
+    flex: 0;
+}
+
+@mixin nav-span-opacity-1 {
+    opacity: 1;
+    margin-left: 8px;
+    width: 100%;
+    display: block;
+    padding-left: 0;
+    flex: 1;
+}
+
+.bx-close-anim{
+    display: none;
+    opacity: 0;
+}
+
+.bx-collapse {
+    .bx-collapse-arrow-right {
         position: absolute;
-            right: 17px;
+        right: 17px;
+        justify-content: right;
+        justify-self: right;
+
     }
 }
 
-.bx-sidebar-group
-{
-    li{
-        .bx-active{
+.bx-a-nav-1 {
+    justify-content: left;
+}
+
+.bx-nav-a {
+    justify-content: left;
+    padding-right: 2px;
+}
+
+.bx-sidebar-group {
+    // width: fit-content;
+
+    li {
+
+        // position: relative;
+
+        .bx-active {
             background: $color-green-2;
-            svg{
+
+            svg {
                 color: #fff;
             }
         }
 
-        a{
-                border-radius: 0;
+        button {
+            // justify-content: left;
+        }
+
+        a {
+            border-radius: 0;
+            // justify-content: left;
+
+        }
+
+        &:hover {}
 
 
+    }
+}
+
+.bx-button-collapse>svg,
+.bx-sidebar-group li>a>svg {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    flex-shrink: 0;
+}
+
+.bx-nav-sidebar>div:first-of-type {
+    overflow: visible;
+}
+
+.bx-collapse-ul-list {
+    @include absoluteUl;
+    // height: 402px;
+
+    li {
+        margin-bottom: 0;
+    }
+
+    a {
+        background: #000000;
+        padding-left: 10px;
+        color: #fff;
+
+        &.bx-active {
+            color: #000;
         }
     }
 }
 
-.bx-btn-collapse
-{
-    .bx-collapse-arrow-right{
-       display: none;
-    }
-}
+
+
+// .bx-collapse-ul-hover-no
+// {
+//     width: 0;
+
+// }
+
+
+
+// .bx-btn-collapse {
+//     .bx-collapse-arrow-right {
+//         display: none;
+//     }
+// }
 
 // .flowbite-sidebar-item-group {
 //   li {
@@ -55,14 +157,103 @@
 
 
 .bx-flowbite-sidebar-item-group li ul[hidden]:where(:not([hidden="until-found"])) {
-  overflow: hidden;
-  height: 0;
-  opacity: 0;
-  transition: height 0.4s ease, opacity 0.3s ease;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: height 0.4s ease, opacity 0.3s ease;
 }
 
 /* When open */
-.bx-flowbite-sidebar-item-group li  ul {
-//  height: 500px;  /* make larger if needed */
-  opacity: 1;
+.bx-flowbite-sidebar-item-group li ul {
+    //  height: 500px;  /* make larger if needed */
+    opacity: 1;
 }
+
+
+
+/***--@media--***/
+
+@media (max-width: 920px) {
+    .bx-sidebar-group {
+        li {
+
+            button {
+                width: 100%;
+                display: flex;
+
+            }
+
+            a {
+                width: 100%;
+                display: flex;
+            }
+        }
+    }
+
+    //  .bx-collapse-ul-hover,
+    // .bx-collapse-ul-open {
+    //     @include absoluteUl;
+    //     max-height: calc(100vh - 110px);
+    //     overflow-y: auto;
+    // }
+
+
+}
+
+
+@media (max-width: 576px) {
+    .bx-collapse-ul-list{
+        @include PositionUnset;
+    }
+
+    .bx-nav-a span,
+    .bx-button-span-4 {
+        opacity: 1;
+        margin-left: 8px;
+        width: 100%;
+        display: block;
+        padding-left: 0;
+        flex: 1;
+    }
+
+    .bx-span-sub {
+        margin-left: 0;
+    }
+
+    .bx-btn-no-click svg {
+        display: block;
+    }
+
+    .bx-sidebar-group li {
+        position: unset;
+    }
+
+    .bx-collapse-ul {
+        @include absoluteUl;
+
+        // height: 402px;
+        li {
+            margin-bottom: 0;
+        }
+
+        a {
+            background: #000000;
+            padding-left: 10px;
+            color: #fff;
+
+            &.bx-active {
+                color: #000;
+            }
+        }
+    }
+
+    .bx-span-sub-ml3 {
+        @include nav-span-opacity-0
+    }
+
+    .bx-sidebar-group-1 {
+
+        width: fit-content;
+    }
+}
+

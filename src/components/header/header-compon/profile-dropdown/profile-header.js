@@ -5,11 +5,23 @@ import { FaUser } from "react-icons/fa";
 import ProfileDropdown from "./profile-dropdown";
 import { Button } from "flowbite-react";
 
-const ProfileHeader = (props) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDrawerProfile, closeDrawerMsg, closeDrawerCart, closeDrawerNoti } from "@/assets/redux-store/store-redux-componets/drawerOpenHideSlice";
 
+
+
+
+const ProfileHeader = (props) => {
+  const dispatch = useDispatch();
+
+  const { drawerProfileOpen } = useSelector(
+    (state) => state.drawerReducer
+  );
   const handleProfileDrawerOpen = () => {
-    setDrawerOpen((prev) => !prev);
+     dispatch(toggleDrawerProfile());
+    dispatch(closeDrawerCart());
+    dispatch(closeDrawerMsg());
+    dispatch(closeDrawerNoti());
   };
 
   return (
@@ -27,7 +39,7 @@ const ProfileHeader = (props) => {
 
         {/* Animated Dropdown */}
         <AnimatePresence>
-          {drawerOpen && (
+          {drawerProfileOpen && (
             <motion.div
               key="profile-dropdown"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}

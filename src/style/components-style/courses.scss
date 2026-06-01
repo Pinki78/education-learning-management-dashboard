@@ -1,0 +1,12 @@
+a:-webkit-any-link:focus-visible {
+    outline-offset: 0px;
+}
+[data-testid="flowbite-popover"] {
+  z-index: 99999 !important;
+}
+.bx-popover
+{
+    box-shadow: 0 0 0 1px oklch(86.72% .0192 282.72deg), 0 2px 8px 0 
+color-mix(in oklch, oklch(62.95% .0204 306.5deg) 8%, transparent), 0 4px 16px 0 
+color-mix(in oklch, oklch(62.95% .0204 306.5deg) 12%, transparent);
+}

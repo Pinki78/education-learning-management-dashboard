@@ -46,7 +46,7 @@ export const HederMenuListDat = [
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Development",
-          pathUrlSub:"/development",
+          pathUrlSub:"/courses/category/development",
           iconName: "RiCodeView ",
           TopYes:"Yes",
         },
@@ -54,7 +54,7 @@ export const HederMenuListDat = [
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Business",
-          pathUrlSub:"/business",
+          pathUrlSub:"/courses/category/business",
           iconName: "MdBusinessCenter",
           TopYes:"Yes",
         },
@@ -62,14 +62,14 @@ export const HederMenuListDat = [
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Web Design",
-          pathUrlSub:"/design",
+          pathUrlSub:"/courses/category/design",
           iconName: "MdDesignServices ",
         },
 
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Marketing",
-          pathUrlSub:"/marketing",
+          pathUrlSub:"/courses/category/marketing",
           iconName: "FaChartPie",
           TopYes:"Yes",
         },
@@ -77,7 +77,7 @@ export const HederMenuListDat = [
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Wed Development",
-          pathUrlSub:"/web-development",
+          pathUrlSub:"/courses/category/web-development",
           iconName: "FaBookOpen ",
           TopYes:"Yes",
         },
@@ -85,14 +85,14 @@ export const HederMenuListDat = [
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"IT & Software",
-          pathUrlSub:"/it-software",
+          pathUrlSub:"/courses/category/it-software",
            iconName:"PiMonitorFill ",
         },
 
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Music",
-          pathUrlSub:"/music",
+          pathUrlSub:"/courses/category/music",
            iconName:"FaMusic ",
           TopYes:"Yes",
         },
@@ -100,7 +100,7 @@ export const HederMenuListDat = [
         {
           id:getIdHeaderMenu("SubMenu" , "sub"),
           pathNameSub:"Photography",
-          pathUrlSub:"/photography",
+          pathUrlSub:"/courses/category/photography",
            iconName:"MdAddAPhoto ",
           TopYes:"Yes",
         },

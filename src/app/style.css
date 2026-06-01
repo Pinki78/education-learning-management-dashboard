@@ -28,6 +28,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  overflow-x: hidden;
 }
 
 
@@ -54,4 +55,12 @@ body {
 
 .ql-editor {
   min-height:150px;
+}
+
+.bx-course-slider .swiper-wrapper{
+  padding-top: 12px;
+}
+
+:focus-visible {
+    outline: 0px;
 }

@@ -12,8 +12,10 @@ const getIdCourse = (title, suffix = "") => {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+
   IdCourse++;
-  return `${setCourseTitleId}${suffix}`;
+
+  return `${setCourseTitleId}-${IdCourse}${suffix}`;
 };
 
 let IdCategoryMenu = 0;
@@ -27,63 +29,61 @@ const getIdCategoryMenu = (categoryName, suffix = "") => {
   return `${setCategoryTitleId}${suffix}`;
 };
 
-let idSocial = 0;
-const getIdSocial = (suffix = "") => {
-  idSocial++;
-  return `${idSocial}${suffix}`;
-};
-
-
 const slugify = (text) =>
   text
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+let idMember = 0;
+const getIdMember = (memberName, suffix = "") => {
+  const memberNameTitleId = memberName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  idMember++;
+  return `${memberNameTitleId}-${idMember}${suffix}`;
+};
+
 export const createCourseList = (
   title,
   imageName,
-  info,
-  price,
-  rating,
-  categoryName,
-  offer = null,
-  member,
-  subCategory= null,
-  badge = null,
-  views = null,
-    socialiocn = null,
-  duration = null,
+  Courseinfo,
+  Courseprice,
+  Courserating,
+  Courseoffer = null,
+  Courseviews = null,
+  CourseNew = null,
+  CourseHours = null,
+  CourseLike = null,
+  seller = null,
+  CoursesCategoryName,
+  subCategory = null,
+  memberListData = [],
 ) => {
- const slugCategory = categoryName
-    .toLowerCase()
-    .replace(/\s+/g, "-");
+  const slugCategory = CoursesCategoryName.toLowerCase().replace(/\s+/g, "-");
 
   const imagePath = `/images/courses/${slugCategory}/${imageName}`;
 
   return {
     id: getIdCourse(title),
-    slug: slugify(title),
-    imagePath,
     title,
-    info,
-    price,
-    rating,
-    member,
-    offer,
-    badge,
-    views,
-    socialiocn,
-    duration,
-    categoryName,
+    imagePath,
+    Courseinfo,
+    Courseprice,
+    Courserating,
+    Courseoffer,
+    Courseviews,
+    CourseNew,
+    CourseHours,
+    CourseLike,
+    seller,
+    CoursesCategoryName,
     subCategory,
-    // SocialIcon: socialiocn.map((Itemicon) => ({
-    //   //  const socialname = item.socialname ?? "Facebook",
-    //   id: getIdSocial("-social"),
-    //   socialname: Itemicon.socialname,
-    //   url: Itemicon.url,
-    //   // IconBase: SOCIAL_ICONS[Itemicon.socialname] || RiFacebookFill,
-    // })),
+    memberListData: memberListData.map((member) => ({
+      id: getIdMember(member.memberName), // ✅ memberName from each member object
+      ...member,
+    })),
   };
 };
 
@@ -95,15 +95,22 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    10000,
-    4.5,
+    10000, // price
+    4.5, // rating
+    "20%", // offer
+    "109k", // views
+    "New", // CourseNew
+    "25 hours", // duration
+    "100k", // like
+    "Bestseller", // seller
     "Development",
+    "Python", // subCategory
 
-    // instructor array
     [
       {
         memberName: "John Doe",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberImage: "/images/membaer/img-1.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -112,6 +119,9 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
+        memberRole: "Development",
+        Students:"100k",
+         memberCourses:15,
         membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
@@ -120,31 +130,33 @@ export const courseListData = [
           { socialName: "Twitter", url: "https://twitter.com" },
         ],
       },
+      
     ],
-
-    "Python", // subCategory
-    "20%", // offer
-    "Bestseller", // badge
-    "109k", // views       // social icons for course (if needed)
-    "25 hours", // duration
   ),
 
   createCourseList(
-    "Complete Python Bootcamp: Go from zero to hero in Python 3",
+    "Complete C++: Go from zero to hero in C++ 3",
     "c++.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    20000,
-    4.5,
+    15000, // price
+    4.5, // rating
+    "5%", // offer
+    "109k", // views
+    "New", // CourseNew
+    "20 hours", // duration
+    "150k", // like
+    "Bestseller", // seller
     "Development",
+    "c++", // subCategory
 
-    // instructor array
     [
       {
-        memberName: "Sanu Doe",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Kerstin Cable",
+        memberImage: "/images/membaer/img-2.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -153,6 +165,9 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
+        memberRole: "Development",
+         Students:"100k",
+         memberCourses:15,
         membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
@@ -162,53 +177,6 @@ export const courseListData = [
         ],
       },
     ],
-
-    "c++", // subCategory
-    "5%", // offer
-    "Bestseller", // badge
-    "1009k", // views       // social icons for course (if needed)
-    "20 hours", // duration
-  ),
-
-  createCourseList(
-    "Complete C++ Bootcamp: Go from zero to hero in C++ 3",
-    "c++.jpg",
-    `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-    Lorem Ipsum has been the industry's standard dummy text ever since
-     the 1500s, when an unknown printer took a galley of type and scrambled it .
-     `,
-    20000,
-    4.5,
-    "Development",
-
-    // instructor array
-    [
-      {
-        memberName: "Sanu Doe",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-        Lorem Ipsum has been the industry's standard dummy text ever since
-        the 1500s, when an unknown printer took a galley of type and scrambled it 
-        to make a type specimen book. It has survived not only five centuries, but 
-        also the leap into electronic typesetting, remaining essentially unchanged. 
-        It was popularised in the 1960s with the release of Letraset sheets containing 
-        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-        PageMaker including versions of Lorem Ipsum.
-     `,
-        membeRating: 4.5,
-        social: [
-          { socialName: "Facebook", url: "https://facebook.com" },
-          { socialName: "Instagram", url: "https://instagram.com" },
-          { socialName: "LinkedIn", url: "https://linkedin.com" },
-          { socialName: "Twitter", url: "https://twitter.com" },
-        ],
-      },
-    ],
-
-    "c++", // subCategory
-    "5%", // offer
-    "Bestseller", // badge
-    "1009k", // views       // social icons for course (if needed)
-    "20 hours", // duration
   ),
 
   createCourseList(
@@ -218,15 +186,21 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    20000,
-    4.5,
+    15000, // price
+    4.5, // rating
+    "5%", // offer
+    "1090k", // views
+    "New", // CourseNew
+    "20 hours", // duration
+    "140k", // like
+    "Bestseller", // seller
     "Development",
-
-    // instructor array
+    "Java", // subCategory
     [
       {
-        memberName: "Ram Ray",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Jose Portilla",
+        memberImage: "/images/membaer/img-3.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -235,9 +209,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
+        memberRole: "Development",
+         Students:"100k",
+         memberCourses:15,
         membeRating: 4.5,
-        // memberCategories: ["Development", "IT & Software"],
-        // memberSubCategories: ["Java", "Java"],
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -246,10 +221,6 @@ export const courseListData = [
         ],
       },
     ],
-
-    "Java", // subCategory
-    "1009k", // views       // social icons for course (if needed)
-    "20 hours", // duration
   ),
 
   createCourseList(
@@ -259,15 +230,22 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    15000,
-    4.8,
+    15800, // price
+    4.5, // rating
+    "15%", // offer
+    "1090k", // views
+    null, // CourseNew
+    "200 hours", // duration
+    "140k", // like
+    "Bestseller", // seller
     "Development",
+    "node", // subCategory
 
-    // instructor array
     [
       {
-        memberName: "Joginder Singh",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Farhat Amin",
+        memberImage: "/images/membaer/img-4.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -276,7 +254,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.5,
+        memberRole: "Development",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -285,10 +266,6 @@ export const courseListData = [
         ],
       },
     ],
-
-    "node", // subCategory
-    "109k", // views       // social icons for course (if needed)
-    "200 hours", // duration
   ),
 
   createCourseList(
@@ -298,15 +275,21 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    10000,
-    4.8,
+    10500, // price
+    4.5, // rating
+    "15%", // offer
+    "190k", // views
+    null, // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "Development",
-
-    // instructor array
+    "react", // subCategory
     [
       {
-        memberName: "Joginder Singh",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Farhat Amin",
+        memberImage: "/images/membaer/img-4.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -315,7 +298,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.5,
+        memberRole: "Development",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -324,12 +310,6 @@ export const courseListData = [
         ],
       },
     ],
-
-    "react", // subCategory
-    "5%", // offer
-    "Bestseller", // badge
-    "109k", // views       // social icons for course (if needed)
-    "20 hours", // duration
   ),
 
   createCourseList(
@@ -339,15 +319,21 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    10000,
-    4.8,
+    10500, // price
+    4.8, // rating
+    null, // offer
+    "190k", // views
+    null, // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "IT & Software",
-
-    // instructor array
+    "data engineer", // subCategory
     [
       {
-        memberName: "John Doe",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Farhat Amin",
+        memberImage: "/images/membaer/img-4.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -356,7 +342,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.5,
+        memberRole: "IT & Software",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -365,12 +354,6 @@ export const courseListData = [
         ],
       },
     ],
-
-    "data engineer", // subCategory
-    // offer
-    "Bestseller", // badge
-    "109k", // views       // social icons for course (if needed)
-    "220 hours", // duration
   ),
 
   createCourseList(
@@ -380,15 +363,21 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    15000,
-    4.9,
+    10500, // price
+    4.8, // rating
+    "10%", // offer
+    "190k", // views
+    "New", // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "IT & Software",
-
-    // instructor array
+    "data engineer", // subCategory
     [
       {
-        memberName: "Poonam Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Kyle Pew",
+        memberImage: "/images/membaer/img-5.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -397,7 +386,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.5,
+        memberRole: "IT & Software",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -406,12 +398,6 @@ export const courseListData = [
         ],
       },
     ],
-
-    "data engineer", // subCategory
-    "10%", // offer
-    "Bestseller", // badge
-    "109k", // views       // social icons for course (if needed)
-    "220 hours", // duration
   ),
 
   createCourseList(
@@ -421,15 +407,21 @@ export const courseListData = [
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
+    10800, // price
+    4.8, // rating
+    "15%", // offer
+    "190k", // views
+    "New", // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "IT & Software",
-
-    // instructor array
+    "data engineer", // subCategory
     [
       {
-        memberName: "Poonam Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Jaysen Batchelor",
+        memberImage: "/images/membaer/img-7.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -438,7 +430,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.4,
+        memberRole: "IT & Software",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -447,30 +442,30 @@ export const courseListData = [
         ],
       },
     ],
-
-    "data analysis", // subCategory
-    "15%", // offer
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
   ),
 
   createCourseList(
     "Complete Figma: Go from zero to hero in Web Design",
-    "figma.png",
+    "figma.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
+    10500, // price
+    4, // rating
+    "5%", // offer
+    "170k", // views
+    null, // CourseNew
+    "10 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "Web Design",
-
-    // instructor array
+    "figma", // subCategory
     [
       {
-        memberName: "Poo Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Quinton Batchelor",
+        memberImage: "/images/membaer/img-8.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -479,7 +474,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.4,
+        memberRole: "Web Design",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -488,71 +486,74 @@ export const courseListData = [
         ],
       },
     ],
-
-    "figma", // subCategory
-    "15%", // offer
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
   ),
-
 
   createCourseList(
     "Complete Photoshop: Go from zero to hero in Web Design",
-    "Photoshop.jpeg",
+    "Photoshop.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
+    10500, // price
+    4, // rating
+    null, // offer
+    "170k", // views
+    null, // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "Web Design",
-
-    // instructor array
-    [
-      {
-        memberName: "Poo Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-        Lorem Ipsum has been the industry's standard dummy text ever since
-        the 1500s, when an unknown printer took a galley of type and scrambled it 
-        to make a type specimen book. It has survived not only five centuries, but 
-        also the leap into electronic typesetting, remaining essentially unchanged. 
-        It was popularised in the 1960s with the release of Letraset sheets containing 
-        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-        PageMaker including versions of Lorem Ipsum.
-     `,
-        membeRating: 5.4,
-        social: [
-          { socialName: "Facebook", url: "https://facebook.com" },
-          { socialName: "Instagram", url: "https://instagram.com" },
-          { socialName: "LinkedIn", url: "https://linkedin.com" },
-          { socialName: "Twitter", url: "https://twitter.com" },
-        ],
-      },
-    ],
-
     "Photoshop", // subCategory
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
+    [
+      {
+        memberName: "Eli Natoli",
+        memberImage: "/images/membaer/img-8.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        Lorem Ipsum has been the industry's standard dummy text ever since
+        the 1500s, when an unknown printer took a galley of type and scrambled it 
+        to make a type specimen book. It has survived not only five centuries, but 
+        also the leap into electronic typesetting, remaining essentially unchanged. 
+        It was popularised in the 1960s with the release of Letraset sheets containing 
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+        PageMaker including versions of Lorem Ipsum.
+     `,
+        memberRole: "Web Design",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
+        social: [
+          { socialName: "Facebook", url: "https://facebook.com" },
+          { socialName: "Instagram", url: "https://instagram.com" },
+          { socialName: "LinkedIn", url: "https://linkedin.com" },
+          { socialName: "Twitter", url: "https://twitter.com" },
+        ],
+      },
+    ],
   ),
 
- createCourseList(
+  createCourseList(
     "Complete business: Go from zero to hero in business",
-    "business-2.jpeg",
+    "business-2.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
+    25000, // price
+    4.2, // rating
+    null, // offer
+    "170k", // views
+    null, // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "Business",
-
-    // instructor array
+    "", // subCategory
     [
       {
-        memberName: "Joy Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Eli Natoli",
+        memberImage: "/images/membaer/img-8.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -561,7 +562,10 @@ export const courseListData = [
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.4,
+        memberRole: "Business",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -570,30 +574,30 @@ export const courseListData = [
         ],
       },
     ],
-
-    
-    "15%", // offer
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
   ),
 
-createCourseList(
+  createCourseList(
     "Complete marketing: Go from zero to hero in marketing",
-    "marketing-3.jpeg",
+    "marketing-3.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
+    25000, // price
+    4.2, // rating
+    "5%", // offer
+    "159k", // views
+    "New", // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "Marketing",
-
-    // instructor array
+    "", // subCategory
     [
       {
-        memberName: "Pinki Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Eli Natoli",
+        memberImage: "/images/membaer/img-8.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -602,7 +606,10 @@ createCourseList(
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.4,
+        memberRole: "Marketing",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -611,30 +618,30 @@ createCourseList(
         ],
       },
     ],
-
-    
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
   ),
 
-
-createCourseList(
+  createCourseList(
     "Complete music: Go from zero to hero in music",
-    "music-3.jpeg",
+    "music-3.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
-    "music",
-
-    // instructor array
+    25000, // price
+    4.2, // rating
+    "7%", // offer
+    "159k", // views
+    "New", // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
+    "Music",
+    "", // subCategory
     [
       {
-        memberName: "Pinki Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Eli Natoli",
+        memberImage: "/images/membaer/img-8.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -643,7 +650,10 @@ createCourseList(
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.4,
+        memberRole: "Music",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -652,30 +662,30 @@ createCourseList(
         ],
       },
     ],
-
-     "15%", // offer
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
   ),
 
-
-createCourseList(
-    "Complete photography: Go from zero to hero in photography",
+  createCourseList(
+    "Complete photography: Go from zero to hero in photograph",
     "photography-3.jpg",
     `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
     Lorem Ipsum has been the industry's standard dummy text ever since
      the 1500s, when an unknown printer took a galley of type and scrambled it .
      `,
-    25000,
-    5,
+    25000, // price
+    4.2, // rating
+    null, // offer
+    "159k", // views
+    null, // CourseNew
+    "100 hours", // duration
+    "240k", // like
+    "Bestseller", // seller
     "Photography",
-
-    // instructor array
+    "Photography", // subCategory
     [
       {
-        memberName: "Puja Verma",
-        bio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        memberName: "Eli Natoli",
+        memberImage: "/images/membaer/img-8.jpg",
+        memberBio: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
         Lorem Ipsum has been the industry's standard dummy text ever since
         the 1500s, when an unknown printer took a galley of type and scrambled it 
         to make a type specimen book. It has survived not only five centuries, but 
@@ -684,7 +694,10 @@ createCourseList(
         Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
         PageMaker including versions of Lorem Ipsum.
      `,
-        membeRating: 5.4,
+        memberRole: "Photography",
+         Students:"100k",
+         memberCourses:15,
+        membeRating: 4.5,
         social: [
           { socialName: "Facebook", url: "https://facebook.com" },
           { socialName: "Instagram", url: "https://instagram.com" },
@@ -693,12 +706,5 @@ createCourseList(
         ],
       },
     ],
-
-     "15%", // offer
-    "Bestseller", // badge
-    "159k", // views       // social icons for course (if needed)
-    "290 hours", // duration
   ),
-
-
 ];

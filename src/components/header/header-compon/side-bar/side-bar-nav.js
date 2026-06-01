@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname } from "next/navigation";
-
+// import { useEffect, useRef } from "react";
 import {
   Sidebar,
   SidebarCollapse,
@@ -24,13 +24,11 @@ import * as GiBookCover from "react-icons/gi";
 
 import {
   fetchHeaderMenu,
-  setToggleItem,
   setToggleDropdown,
   uploadHeaderMenu,
 } from "@/assets/redux-store/store-redux-componets/headerMenuSlice";
 import { useEffect } from "react";
 import Link from "next/link";
-
 const SideBarNav = (props) => {
   const allIcons = {
     ...ImIcons,
@@ -49,9 +47,8 @@ const SideBarNav = (props) => {
   const pathname = usePathname();
 
   const dispatch = useDispatch();
-  const { activeItemId, menuHeader , activeDropdownId} = useSelector(
-    (state) => state.headerMenuReducer,
-  ); // assuming your slice has 'open'
+  const { activeItemId, menuHeader, showCloseClass, activeDropdownId } =
+    useSelector((state) => state.headerMenuReducer); // assuming your slice has 'open'
   // console.log(menuHeader);
   // useEffect(() => {
   //   dispatch(uploadHeaderMenu()).then(() => {
@@ -73,43 +70,97 @@ const SideBarNav = (props) => {
     <>
       <div
         className={`
-        bg-white 
-        shadow-lg 
-        z-40 
-        transform 
-        transition-all 
-        duration-300 
-        overflow-hidden
-        absolute
-        top-[0]
-        bottom-[0]
-        w-[100%]
-        bx-nav-root
-      `}
+      bg-white shadow-lg z-40 transform transition-all duration-300
+      absolute top-[0] bottom-[0] w-[100%] bx-nav-root
+      bx-side-bar
+      
+    `}
       >
-        <Sidebar aria-label="Sidebar with multi-level dropdown example" className={`bx-nav-sidebar w-[100%] `}>
-          <SidebarItems className={`w-[100%]`}>
-            <SidebarItemGroup className="bx-sidebar-group bx-flowbite-sidebar-item-group">
+        <Sidebar
+          className={`bx-nav-sidebar w-[100%]  ${activeItemId ? "bx-Sidebar28 sm:overflow-y-scroll sm:overflow-x-hidden  " : "overflow-y-scroll overflow-x-hidden bx-Sidebar-8"} `}
+        >
+          <SidebarItems className="w-[100%] 555">
+            <SidebarItemGroup
+              className={`bx-sidebar-group ${activeItemId ? "bx-sidebar-group-2" : "overflow-x-hidden bx-sidebar-group-1 "} `}
+              theme={{
+                base: "bx-li-itemyour-classes",
+                label: {
+                  base: "bx-li-itemyour-classes555",
+                },
+              }}
+            >
               {menuHeader.map((item) => {
                 const hasSubMenu = item.SubMenuDate?.length > 0;
                 const IconComponent = allIcons[item.iconName?.trim()];
                 const isActive = pathname === item.pathUrl;
-                // console.log(item.pathName +'item.icon');
+                const subMenuLength = item.SubMenuDate?.length || 0;
+
                 if (hasSubMenu) {
                   return (
                     <SidebarCollapse
+                      // as={Link}
                       key={item.id}
                       icon={IconComponent}
-                      label={!activeItemId ? item.pathName : ""}
+                      label={item.pathName}
                       open={activeDropdownId === item.id}
+                      // {...(activeItemId
+                      //                     ? {
+                      //                         onMouseEnter: () => dispatch(setToggleDropdown(item.id)),
+                      //                         onMouseLeave: () => dispatch(setToggleDropdown(null)),
+                      //                       }
+                      //                     : {
+                      //                         onClick: () => dispatch(setToggleDropdown(item.id)),
+                      //                       }
+                      //                   )}
+
                       onClick={() => dispatch(setToggleDropdown(item.id))}
-                      className={` ${activeItemId ? " flex-col bx-btn-collapse" : "flex-row"}
-                       ${ isActive ? "bx-active" : "bx-collapse relative"}
-                      `}
                       theme={{
+                        button: `
+                            bx-button-collapse flex p-2 w-full items-center
+                            ${activeItemId ? " bx-btn-no-click" : " px-2 bx-btn-click"}
+                            ${isActive ? "bx-active" : ""}
+                          `,
+
+                        list: `
+                          overflow-y-scroll transition-all duration-300
+
+                          ${activeItemId ? "bx-collapse-ul-list" : "bx-collapse-ul"}
+
+                          ${
+                            activeDropdownId === item.id
+                              ? "bx-collapse-ul-open 2xl;"
+                              : "bx-collapse-ul-hover-no"
+                          }
+
+                          ${
+                            activeItemId && subMenuLength >= 6
+                              ? "h-[450px] sm:h-auto bx-subMenuLength-1"
+                              : "sm:h-[450px] bx-subMenuLength-2"
+                          }
+
+                          ${showCloseClass ? "bx-close-anim" : "bx-close-anim-55"}
+                        `,
+
                         label: {
+                          base: `
+                            text-left overflow-hidden whitespace-nowrap transition-all duration-300
+                            ${
+                              activeItemId
+                                ? "w-auto opacity-0 ml-0 pointer-events-none flex-[0] bx-button-span-4"
+                                : "w-auto opacity-100 ml-3   bx-button-span-3"
+                            }
+                            ${
+                              activeDropdownId === item.id
+                                ? " bx-button-span"
+                                : "bx-button-span-2"
+                            }
+                          `,
+
                           icon: {
-                            base: "ml-auto bx-collapse-arrow-right ",
+                            base: `
+                            ml-auto shrink-0 bx-collapse-arrow-right
+                            ${activeItemId ? " hidden" : " 111 block "}
+                          `,
                             open: {
                               on: "rotate-180",
                               off: "rotate-0",
@@ -125,18 +176,27 @@ const SideBarNav = (props) => {
                             as={Link}
                             key={subItem.id}
                             href={subItem.pathUrlSub}
-                            icon={subItem.icon}
+                            // ✅ className targets the <a> inside
+                            {...(activeItemId
+                                          ? {
+                                              onClick: () => dispatch(setToggleDropdown(false)),
+                                            }
+                                          : {
+                                             
+                                            }
+                                        )}
                             className={`
-                             ${ isActiveSub
-                                ? "bx-active bg-[#3b9e62]"
-                                : "bx-collapse-item"}
-                            `}
-
+                              ${isActiveSub ? "bx-active bx-a-collapse-item" : "bx-collapse-a-item"}`}
                             theme={{
-                              base: "bx-li-collapse-item", // this goes to <li
+                              // list: `
+                              //      ${activeItemId && item.SubMenuDate?.length === 6 ? "h-[300px]" : ""}
+                              // `,
+                              content: {
+                                base: `bx-span-sub-subManu text-left ${activeItemId ? "block " : "block"}`,
+                              },
                             }}
                           >
-                            {!activeItemId ? subItem.pathNameSub : ""}
+                            {subItem.pathNameSub}
                           </SidebarItem>
                         );
                       })}
@@ -147,15 +207,25 @@ const SideBarNav = (props) => {
                 return (
                   <SidebarItem
                     as={Link}
+                    // as="li"
                     key={item.id}
                     href={item.pathUrl}
                     icon={IconComponent}
-                    className={`${activeItemId ? " flex-col" : ""} ${isActive ? "bx-active" : "bx-nav"}`}
+                    className={`bx-nav  ${isActive ? "bx-active" : ""}  ${activeItemId ? `eeeee bx-nav-a` : `rrrr justify-start bx-a-nav-1`}`}
+                    onClick={() => dispatch(setToggleDropdown(false))}
                     theme={{
-                      base: "bx-li-item", // this goes to <li
+                      content: {
+                        base: `{
+                          bx-span-sub pointer-events-none 
+                          text-left 
+                          whitespace-nowrap transition-all 
+                          duration-300
+                          ${activeItemId ? `33y opacity-0 hidden ml-0 w-[0%] flex-[0] x-span-sub-ml2` : `p-0 ml-3 bx-span-sub-ml3 ddddddd`}
+                        }`,
+                      },
                     }}
                   >
-                    {!activeItemId ? item.pathName : ""}
+                    {item.pathName}
                   </SidebarItem>
                 );
               })}

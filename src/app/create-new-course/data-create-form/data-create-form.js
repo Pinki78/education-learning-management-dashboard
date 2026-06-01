@@ -221,7 +221,7 @@ export const CreateNewCourseFormData = [
       }),
     ],
   }),
-
+  
   makeSection("Curriculum", {
     FormData: [
       makeField("Section Name*", {

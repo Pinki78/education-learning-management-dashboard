@@ -6,11 +6,34 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "flowbite-react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDrawerCart, closeDrawerMsg, closeDrawerNoti, closeDrawerProfile } from "@/assets/redux-store/store-redux-componets/drawerOpenHideSlice";
+
+
 const CartHeader = (props) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { drawerCartOpen } = useSelector(
+    (state) => state.drawerReducer
+  );
+
+    const { cartItems, totalPrice } = useSelector(
+    (state) => state.addToCartReducer,
+  );
+
+const totalQty = cartItems.reduce(
+  (total, item) => total + item.quantity,
+  0
+);
+
 
   const handleCartDrawerOpen = () => {
-    setDrawerOpen((prev) => !prev);
+    dispatch(toggleDrawerCart());
+    dispatch(closeDrawerMsg());
+    dispatch(closeDrawerNoti());
+    dispatch(closeDrawerProfile());
   };
 
   // const handleRemoveItem = (id) => {
@@ -31,13 +54,13 @@ const CartHeader = (props) => {
             className={`bx-cart-item-count text-[11px] py-[2px] 
           px-[6px] absolute bg-[#000] rounded-4xl top-0 right-[11px] text-[#fff]`}
           >
-            0
+            {totalQty}
           </span>
         </Button>
 
         {/* Animated Dropdown */}
         <AnimatePresence>
-          {drawerOpen && (
+          {drawerCartOpen && (
             <motion.div
               key="cart-dropdown"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}

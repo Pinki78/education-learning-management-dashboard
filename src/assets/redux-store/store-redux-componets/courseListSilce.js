@@ -1,4 +1,3 @@
-"use client";
 
 import { db } from "@/assets/firebase/firebaseClient.js";
 import { doc, setDoc, getDoc } from "firebase/firestore";
@@ -9,40 +8,44 @@ import { courseListData } from "@/assets/api-datas/course-data/course-data";
 export const uploadCourseFirestore = createAsyncThunk(
   "CourseItms/upload",
   async () => {
-    await setDoc(doc(db, "CoursesDataList", "CourseItms"), {
-      CourseDoc: courseListData,
+    const docRef = doc(db, "coursesDataList", "courseItms");
+
+    await setDoc(docRef, {
+      CourseItms: courseListData,
     });
 
     return courseListData;
   }
 );
 
-// Fetch menu
+// 🔹 Fetch menu
 export const fetchCourse = createAsyncThunk(
   "CourseItms/fetch",
   async () => {
-    const docRef = doc(db, "CoursesDataList", "CourseItms");
+    const docRef = doc(db, "coursesDataList", "courseItms");
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      return docSnap.data().CourseDoc; // fixed
-    } else {
-      return courseListData;
+      return docSnap.data().CourseItms;
     }
+
+    // ✅ Auto upload if empty
+    await setDoc(docRef, {
+      CourseItms: courseListData,
+    });
+
+    return courseListData;
   }
 );
 
-const courseListSilce = createSlice({
+const courseListSlice = createSlice({
   name: "CourseItms",
   initialState: {
-    CourseCreate: [],
+    CourseDataState: [],
     loading: false,
-   
   },
 
-  reducers: {
-    
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder
@@ -50,14 +53,14 @@ const courseListSilce = createSlice({
         state.loading = true;
       })
       .addCase(uploadCourseFirestore.fulfilled, (state, action) => {
-        state.CourseCreate = action.payload;
+        state.CourseDataState = action.payload;
         state.loading = false;
       })
       .addCase(fetchCourse.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchCourse.fulfilled, (state, action) => {
-        state.CourseCreate = action.payload;
+        state.CourseDataState = action.payload;
         state.loading = false;
       })
       .addCase(fetchCourse.rejected, (state) => {
@@ -66,5 +69,4 @@ const courseListSilce = createSlice({
   },
 });
 
-export const { setToggleItem } = courseListSilce.actions;
-export default courseListSilce.reducer;
+export default courseListSlice.reducer;

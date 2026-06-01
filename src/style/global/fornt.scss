@@ -1,0 +1,19 @@
+$font-lato: var(--font-lato);
+$font-roboto: var(--font-roboto);
+$font-geist: var(--font-geist-sans);
+$font-mono: var(--font-geist-mono);
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-lato);
+}
+
+p,span{
+       font-family: var(--font-roboto);
+}
+
+a{
+     font-family: var(--font-lato);
+}
+
+

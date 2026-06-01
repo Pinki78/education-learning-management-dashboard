@@ -27,7 +27,7 @@ const BasicForm = () => {
     (item) => item.FormTitle === "Basic",
   );
 
-  const fields = basicSection?.FormData || [];
+  const fields = basicSection.FormData || [];
   const getTextLength = (html) => {
     const text = html?.replace(/<[^>]+>/g, "") || "";
     return text.trim().length;

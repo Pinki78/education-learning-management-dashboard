@@ -36,14 +36,14 @@ export const ContentTotalData =[
         id:getFaqIdForm('Total Video'),
         titel:"Total Video",
         iconName:<FaVideo />,
-        ToletNo:'25',
+        ToletNo:'28',
         successtext:'25.21',
     },
     {
         id:getFaqIdForm('Total Earning'),
         titel:"Total Earning",
         iconName:<FaWallet />,
-        ToletNo:'8,015.30',
+        ToletPrice:'801530',
         successtext:'25.21',
     },
 ]

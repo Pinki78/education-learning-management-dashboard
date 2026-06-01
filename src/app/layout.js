@@ -1,6 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono ,Roboto, Lato} from "next/font/google";
 import { ThemeModeScript } from "flowbite-react";
 
+import "swiper/css";
 import "./style.css";
 import "../style/global.scss";
 import Header from "@/components/header/header";
@@ -16,6 +17,21 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const LatoFornt = Lato({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"],
+  variable: "--font-lato",
+});
+
+const  RobotoFornt = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  variable: "--font-roboto",
+});
+
+
+
 
 export const metadata = {
   title: "Dashboard | Education Web App",
@@ -35,7 +51,7 @@ export default function RootLayout({ children }) {
         <ThemeModeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f7f7f7]`}
+        className={`${geistSans.variable} ${RobotoFornt.variable} ${LatoFornt.variable} ${geistMono.variable} antialiased bg-[#f7f7f7]`}
       >
         <Providers>
           <LayoutWrapper>
